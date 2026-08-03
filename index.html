@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio - Animação de Scroll</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=6">
+</head>
+
+<body>
+    <!-- Watermark -->
+    <div class="watermark">Natan Marinho</div>
+
+    <!-- Canvas for Fluid Cursor -->
+    <canvas id="fluid-canvas" class="fluid-cursor-canvas"></canvas>
+
+    <div class="scroll-container">
+        <!-- Canvas for the scroll animation -->
+        <canvas id="hero-canvas"></canvas>
+
+        <!-- Project Modals -->
+        <article class="project-modal" id="project-1" tabindex="0" aria-labelledby="title-project-1">
+            <h2 id="title-project-1">Central AutoCar</h2>
+            <p>Site institucional moderno e responsivo para uma grande empresa de pneus, projetado para alta conversão e
+                excelente usabilidade mobile.</p>
+
+            <div class="hover-layer">
+                <div class="media-preview-container">
+                    <img src="./demo1.gif" alt="Animação de demonstração do site Central Auto Car" class="preview-media">
+                </div>
+            </div>
+        </article>
+
+        <article class="project-modal" id="project-2" tabindex="0" aria-labelledby="title-project-2">
+            <h2 id="title-project-2">WA FORT</h2>
+            <p>Site institucional criado para uma empresa de segurança eletrônica.</p>
+            
+            <div class="hover-layer">
+                <div class="media-preview-container">
+                    <img src="./demo2.gif" alt="Animação de demonstração do site WA FORT" class="preview-media">
+                </div>
+            </div>
+        </article>
+
+        <article class="project-modal" id="project-3" tabindex="0" aria-labelledby="title-project-3">
+            <h2 id="title-project-3">Central Pneus - Vipal</h2>
+            <p>Site institucional projetado para uma empresa do setor automotivo e de pneus.</p>
+            
+            <div class="hover-layer">
+                <div class="media-preview-container">
+                    <img src="./demo3.gif" alt="Animação de demonstração do site Central Pneus Vipal" class="preview-media">
+                </div>
+            </div>
+        </article>
+
+        <article class="project-modal" id="project-4" tabindex="0" aria-labelledby="title-project-4">
+            <h2 id="title-project-4">Barcaça</h2>
+            <p>Site desenvolvido para um restaurante da região, focado em atrair clientes e destacar a gastronomia local.</p>
+            
+            <div class="hover-layer">
+                <div class="media-preview-container">
+                    <img src="./demo4.gif" alt="Animação de demonstração do site Restaurante Barcaça" class="preview-media">
+                </div>
+            </div>
+        </article>
+
+        <article class="project-modal" id="project-5" tabindex="0" aria-labelledby="title-project-5">
+            <h2 id="title-project-5">Landing Page Epsilon</h2>
+            <p>Página de alta conversão projetada para um grande lançamento de produto, com animações e copy
+                estratégico.</p>
+            <a href="#" class="btn" tabindex="-1">Visualizar Projeto</a>
+            <div class="hover-layer">
+                <h3>Aguardando Link...</h3>
+                <p>Me envie os links para colocar aqui!</p>
+            </div>
+        </article>
+
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </div>
+
+
+
+    <!-- Fullscreen Overlay -->
+    <div id="fullscreen-overlay" class="fullscreen-overlay">
+        <span class="close-fullscreen">&times;</span>
+        <img id="fullscreen-img" src="" alt="Fullscreen Preview">
+    </div>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script src="fluid-cursor.js?v=7"></script>
+    <script src="script.js?v=7"></script>
+</body>
+
+</html>
