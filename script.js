@@ -15,28 +15,55 @@ const currentFrame = index => (
 const images = new Array(frameCount);
 const frameData = { frame: 0 };
 
+// Otimização: Cache das propriedades matemáticas do Canvas
+let renderProps = null;
+let lastRenderedFrame = -1;
+
 // Responsividade do canvas
 function resizeCanvas() {
   const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  // Ajusta a resolução interna do canvas baseada no tamanho real da tela e densidade de pixels
+  // Limitar dpr a 2 para evitar lag em telas de altíssima densidade (ex: 4K / DPR 3+)
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  
   canvas.width = rect.width * dpr;
   canvas.height = rect.height * dpr;
+  
+  // Calcula proporções apenas quando a tela muda de tamanho
+  const firstValidImg = images.find(img => img && img.complete && img.width > 0);
+  if (firstValidImg) {
+      calculateRenderProps(firstValidImg);
+  }
+  
+  lastRenderedFrame = -1; // Força re-render
   render();
+}
+
+function calculateRenderProps(img) {
+    const hRatio = canvas.width / img.width;
+    const vRatio = canvas.height / img.height;
+    
+    const isMobile = window.innerWidth <= 768;
+    const ratio = isMobile ? Math.max(hRatio, vRatio) : Math.min(hRatio, vRatio); 
+    
+    renderProps = {
+        width: img.width * ratio,
+        height: img.height * ratio,
+        x: (canvas.width - (img.width * ratio)) / 2,
+        y: canvas.height - (img.height * ratio)
+    };
 }
 
 window.addEventListener("resize", resizeCanvas);
 
 // Carregamento otimizado (Progressivo)
 function initPreloader() {
-  // Carrega o primeiro frame imediatamente
   const firstImage = new Image();
-  firstImage.onload = () => {
-    images[0] = firstImage;
-    resizeCanvas(); // Chama o primeiro resize/render
-    startSequentialPreload(); // Começa a carregar os próximos
-  };
   firstImage.src = currentFrame(0);
+  firstImage.decode().then(() => {
+    images[0] = firstImage;
+    resizeCanvas(); 
+    startSequentialPreload(); 
+  });
 }
 
 // Carrega o restante das imagens em lotes para não travar o navegador
@@ -48,25 +75,23 @@ function startSequentialPreload() {
     
     const index = currentIndex++;
     const img = new Image();
+    img.src = currentFrame(index);
     
-    img.onload = () => {
+    // Otimização: decode() descarrega o processamento do thread principal e evita engasgos
+    img.decode().then(() => {
       images[index] = img;
-      // Se a animação já chegou nesse frame, renderiza-o imediatamente
+      
       const currentFrameIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
       if (currentFrameIndex === index) {
         render();
       }
       loadNext();
-    };
-    
-    img.onerror = () => {
-      loadNext(); // Tenta o próximo em caso de falha
-    };
-    
-    img.src = currentFrame(index);
+    }).catch(() => {
+      loadNext(); 
+    });
   }
   
-  // Abre 4 "threads" simultâneas para carregar mais rápido, mas sem afogar a rede
+  // Mantém 4 threads de carregamento simultâneas
   for(let i = 0; i < 4; i++) {
     loadNext();
   }
@@ -83,7 +108,8 @@ gsap.to(frameData, {
     trigger: ".scroll-container",
     start: "top top",
     end: "bottom bottom",
-    scrub: 2.5,
+    scrub: 1.5, // Reduzido para ficar mais responsivo ao scroll do mouse
+    fastScrollEnd: true, // Otimização extra para scrolls muito rápidos
     onUpdate: render
   }
 });
@@ -91,31 +117,18 @@ gsap.to(frameData, {
 // Função para desenhar a imagem atual no canvas
 function render() {
   const currentFrameIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
+  
+  // Otimização: Evitar chamadas desnecessárias de renderização (dirty checking)
+  if (currentFrameIndex === lastRenderedFrame) return;
+  
   const img = images[currentFrameIndex];
   
-  if (img && img.complete) {
-    // Limpar o canvas anterior
+  if (img && img.complete && renderProps) {
+    lastRenderedFrame = currentFrameIndex;
+    
     context.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Calcula a proporção para o canvas
-    const hRatio = canvas.width / img.width;
-    const vRatio = canvas.height / img.height;
-    
-    // No computador mantemos como antes para não dar zoom (Math.min),
-    // No celular usamos Math.max para preencher o formato vertical (cover)
-    const isMobile = window.innerWidth <= 768;
-    const ratio = isMobile ? Math.max(hRatio, vRatio) : Math.min(hRatio, vRatio); 
-    
-    const newWidth = img.width * ratio;
-    const newHeight = img.height * ratio;
-    
-    // Centraliza no eixo X
-    const centerShift_x = (canvas.width - newWidth) / 2;
-    // Encosta no final do eixo Y (embaixo)
-    const centerShift_y = canvas.height - newHeight;  
-
     context.drawImage(img, 0, 0, img.width, img.height,
-                      centerShift_x, centerShift_y, newWidth, newHeight);
+                      renderProps.x, renderProps.y, renderProps.width, renderProps.height);
   }
 }
 
@@ -128,7 +141,8 @@ const modalConfig = {
     scale: 1,
     y: 0, // Chega na posição original (controlada pelo CSS)
     duration: 0.8,
-    ease: "power3.out"
+    ease: "power3.out",
+    force3D: true // Garante aceleração de hardware pela GPU para as transições
 };
 
 // Configuração do estado inicial escondido (deslocado um pouco para baixo)
