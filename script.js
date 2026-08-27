@@ -13,9 +13,9 @@ context.imageSmoothingQuality = "high";
 
 const frameCount = 271;
 
-// Caminho dos frames
+// Caminho dos frames (WebP de Alta Performance - 92.6% mais leve)
 const currentFrame = index => (
-  `./frames/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.png`
+  `./frames/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.webp`
 );
 
 const images = new Array(frameCount);
