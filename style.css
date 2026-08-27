@@ -1332,7 +1332,8 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     visibility: visible;
 }
 
-.fullscreen-overlay img {
+.fullscreen-overlay img,
+.fullscreen-overlay video {
     max-width: 90%;
     max-height: 90%;
     object-fit: contain;
@@ -1342,7 +1343,8 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     transition: transform 0.3s ease;
 }
 
-.fullscreen-overlay.active img {
+.fullscreen-overlay.active img,
+.fullscreen-overlay.active video {
     transform: scale(1);
 }
 

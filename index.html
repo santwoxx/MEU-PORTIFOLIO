@@ -65,7 +65,7 @@
     <link rel="preload" as="image" href="./frames/ezgif-frame-001.webp" fetchpriority="high">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=15">
+    <link rel="stylesheet" href="style.css?v=16">
 </head>
 
 <body>
@@ -123,7 +123,7 @@
 
             <div class="hover-layer">
                 <div class="media-preview-container">
-                    <img src="./demo1.gif" alt="Animação de demonstração do site Central Auto Car" class="preview-media">
+                    <video class="preview-media" src="./demo1.mp4" poster="./demo1-poster.webp" preload="none" loop muted playsinline aria-label="Animação de demonstração do site Central Auto Car"></video>
                 </div>
             </div>
         </article>
@@ -135,7 +135,7 @@
             
             <div class="hover-layer">
                 <div class="media-preview-container">
-                    <img src="./demo2.gif" alt="Animação de demonstração do site WA FORT" class="preview-media">
+                    <video class="preview-media" src="./demo2.mp4" poster="./demo2-poster.webp" preload="none" loop muted playsinline aria-label="Animação de demonstração do site WA FORT"></video>
                 </div>
             </div>
         </article>
@@ -147,7 +147,7 @@
             
             <div class="hover-layer">
                 <div class="media-preview-container">
-                    <img src="./demo3.gif" alt="Animação de demonstração do site Central Pneus Vipal" class="preview-media">
+                    <video class="preview-media" src="./demo3.mp4" poster="./demo3-poster.webp" preload="none" loop muted playsinline aria-label="Animação de demonstração do site Central Pneus Vipal"></video>
                 </div>
             </div>
         </article>
@@ -159,7 +159,7 @@
             
             <div class="hover-layer">
                 <div class="media-preview-container">
-                    <img src="./demo4.gif" alt="Animação de demonstração do site Restaurante Barcaça" class="preview-media">
+                    <video class="preview-media" src="./demo4.mp4" poster="./demo4-poster.webp" preload="none" loop muted playsinline aria-label="Animação de demonstração do site Restaurante Barcaça"></video>
                 </div>
             </div>
         </article>
@@ -617,7 +617,7 @@
          ========================================= -->
     <div id="fullscreen-overlay" class="fullscreen-overlay">
         <span class="close-fullscreen">&times;</span>
-        <img id="fullscreen-img" src="" alt="Fullscreen Preview">
+        <video id="fullscreen-video" src="" controls loop muted playsinline aria-label="Pré-visualização em tela cheia"></video>
     </div>
 
     <!-- GSAP & ScrollTrigger -->
@@ -625,8 +625,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <!-- Project Scripts -->
-    <script src="fluid-cursor.js?v=15"></script>
-    <script src="script.js?v=15"></script>
+    <script src="fluid-cursor.js?v=16"></script>
+    <script src="script.js?v=16"></script>
 </body>
 
 </html>

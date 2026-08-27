@@ -305,21 +305,29 @@ gsap.fromTo("#project-5", modalHiddenState, {
 // ==========================================================
 const modals = document.querySelectorAll('.project-modal');
 const fullscreenOverlay = document.getElementById('fullscreen-overlay');
-const fullscreenImg = document.getElementById('fullscreen-img');
+const fullscreenVideo = document.getElementById('fullscreen-video');
 const closeFullscreenBtn = document.querySelector('.close-fullscreen');
 
 function openModalPreview(e, modal) {
     if (e.target.tagName.toLowerCase() === 'a') return;
-    
-    const previewImg = modal.querySelector('.preview-media');
-    if (previewImg && previewImg.src) {
-        fullscreenImg.src = previewImg.src;
-        fullscreenImg.alt = previewImg.alt;
+
+    const preview = modal.querySelector('.preview-media');
+    if (preview && preview.getAttribute('src')) {
+        fullscreenVideo.src = preview.getAttribute('src');
+        fullscreenVideo.poster = preview.getAttribute('poster') || '';
         fullscreenOverlay.classList.add('active');
+        fullscreenVideo.play().catch(() => {});
     }
 }
 
+// Os vídeos usam preload="none": só baixam quando o card é revelado no hover
 modals.forEach(modal => {
+    const preview = modal.querySelector('.preview-media');
+    if (preview) {
+        modal.addEventListener('mouseenter', () => preview.play().catch(() => {}));
+        modal.addEventListener('mouseleave', () => preview.pause());
+    }
+
     modal.addEventListener('click', (e) => openModalPreview(e, modal));
     modal.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -331,8 +339,10 @@ modals.forEach(modal => {
 
 function closeFullscreen() {
     fullscreenOverlay.classList.remove('active');
+    fullscreenVideo.pause();
     setTimeout(() => {
-        fullscreenImg.src = "";
+        fullscreenVideo.removeAttribute('src');
+        fullscreenVideo.load();
     }, 300);
 }
 
