@@ -22,6 +22,8 @@ let lastRenderedFrame = -1;
 
 // Responsividade do canvas
 function resizeCanvas() {
+  if (!canvas) return;
+  
   const rect = canvas.getBoundingClientRect();
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   
@@ -38,6 +40,8 @@ function resizeCanvas() {
 }
 
 function calculateRenderProps(img) {
+    if (!img || img.width === 0 || img.height === 0) return;
+    
     const hRatio = canvas.width / img.width;
     const vRatio = canvas.height / img.height;
     
@@ -54,17 +58,22 @@ function calculateRenderProps(img) {
 
 window.addEventListener("resize", resizeCanvas);
 
-// Carregamento otimizado (Progressivo)
+// Carregamento otimizado (Progressivo com fallback robusto)
 function initPreloader() {
   const firstImage = new Image();
   firstImage.src = currentFrame(0);
-  firstImage.decode().then(() => {
+  
+  firstImage.onload = () => {
     images[0] = firstImage;
-    resizeCanvas(); 
-    startSequentialPreload(); 
-  }).catch(() => {
+    resizeCanvas();
+    render();
     startSequentialPreload();
-  });
+    ScrollTrigger.refresh();
+  };
+  
+  firstImage.onerror = () => {
+    startSequentialPreload();
+  };
 }
 
 // Carrega o restante das imagens em lotes simultâneos
@@ -78,20 +87,28 @@ function startSequentialPreload() {
     const img = new Image();
     img.src = currentFrame(index);
     
-    img.decode().then(() => {
+    img.onload = () => {
       images[index] = img;
       
+      if (!renderProps && img.width > 0) {
+        calculateRenderProps(img);
+      }
+      
       const currentFrameIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
-      if (currentFrameIndex === index) {
+      if (currentFrameIndex === index || lastRenderedFrame === -1) {
+        lastRenderedFrame = -1;
         render();
       }
       loadNext();
-    }).catch(() => {
+    };
+    
+    img.onerror = () => {
       loadNext(); 
-    });
+    };
   }
   
-  for(let i = 0; i < 4; i++) {
+  // 4 threads de carregamento simultâneo
+  for (let i = 0; i < 4; i++) {
     loadNext();
   }
 }
@@ -115,34 +132,25 @@ gsap.to(frameData, {
 // Função para desenhar a imagem atual no canvas
 function render() {
   const currentFrameIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
-  if (currentFrameIndex === lastRenderedFrame) return;
+  if (currentFrameIndex === lastRenderedFrame && lastRenderedFrame !== -1) return;
   
-  const img = images[currentFrameIndex];
+  const img = images[currentFrameIndex] || images[0];
   
-  if (img && img.complete && renderProps) {
-    lastRenderedFrame = currentFrameIndex;
+  if (img && img.complete && img.width > 0) {
+    if (!renderProps) {
+      calculateRenderProps(img);
+    }
     
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(img, 0, 0, img.width, img.height,
-                      renderProps.x, renderProps.y, renderProps.width, renderProps.height);
+    if (renderProps) {
+      lastRenderedFrame = currentFrameIndex;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(img, 0, 0, img.width, img.height,
+                        renderProps.x, renderProps.y, renderProps.width, renderProps.height);
+    }
   }
 }
 
-// ==========================================================
-// 2. TRANSIÇÃO & FADE-OUT SUAVE DO HERO CANVAS AO SAIR
-// ==========================================================
-gsap.to("#hero-canvas", {
-    scrollTrigger: {
-        trigger: ".scroll-container",
-        start: "90% top",
-        end: "100% top",
-        scrub: true
-    },
-    opacity: 0,
-    ease: "power1.out"
-});
-
-// Ocultar o indicador de scroll ao começar a rolar a página
+// Ocultar o indicador de scroll (mousezinho) ao começar a rolar
 gsap.to(".scroll-indicator", {
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -154,7 +162,7 @@ gsap.to(".scroll-indicator", {
 });
 
 // ==========================================================
-// 3. ANIMAÇÕES DOS MODAIS DE PROJETOS (PRESERVADOS)
+// 2. ANIMAÇÕES DOS MODAIS DE PROJETOS (PRESERVADOS)
 // ==========================================================
 const modalConfig = {
     opacity: 1,
@@ -173,6 +181,7 @@ const modalHiddenState = {
     y: 50
 };
 
+// Projeto 1
 gsap.fromTo("#project-1", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -183,6 +192,7 @@ gsap.fromTo("#project-1", modalHiddenState, {
     ...modalConfig
 });
 
+// Projeto 2
 gsap.fromTo("#project-2", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -193,6 +203,7 @@ gsap.fromTo("#project-2", modalHiddenState, {
     ...modalConfig
 });
 
+// Projeto 3
 gsap.fromTo("#project-3", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -203,6 +214,7 @@ gsap.fromTo("#project-3", modalHiddenState, {
     ...modalConfig
 });
 
+// Projeto 4
 gsap.fromTo("#project-4", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -213,6 +225,7 @@ gsap.fromTo("#project-4", modalHiddenState, {
     ...modalConfig
 });
 
+// Projeto 5
 gsap.fromTo("#project-5", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -224,7 +237,7 @@ gsap.fromTo("#project-5", modalHiddenState, {
 });
 
 // ==========================================================
-// 4. FULLSCREEN OVERLAY LOGIC (PRESERVADO)
+// 3. FULLSCREEN OVERLAY LOGIC (PRESERVADO)
 // ==========================================================
 const modals = document.querySelectorAll('.project-modal');
 const fullscreenOverlay = document.getElementById('fullscreen-overlay');
@@ -267,7 +280,7 @@ fullscreenOverlay.addEventListener('click', (e) => {
 });
 
 // ==========================================================
-// 5. STICKY HEADER SCROLL EFFECT
+// 4. STICKY HEADER SCROLL EFFECT
 // ==========================================================
 const mainHeader = document.getElementById('main-header');
 window.addEventListener('scroll', () => {
@@ -279,7 +292,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ==========================================================
-// 6. ANIMAÇÕES GSAP PARA AS NOVAS SEÇÕES
+// 5. ANIMAÇÕES GSAP PARA AS NOVAS SEÇÕES
 // ==========================================================
 // Revelação de Pilares na Seção Sobre
 gsap.from(".pillar-card", {
@@ -324,7 +337,7 @@ gsap.from(".contact-card-wrapper", {
 });
 
 // ==========================================================
-// 7. ACORDEÃO INTERATIVO DE SERVIÇOS
+// 6. ACORDEÃO INTERATIVO DE SERVIÇOS
 // ==========================================================
 const accordionItems = document.querySelectorAll('.accordion-item');
 
@@ -334,13 +347,11 @@ accordionItems.forEach(item => {
     header.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
         
-        // Fecha todos os outros itens para um efeito focado
         accordionItems.forEach(otherItem => {
             otherItem.classList.remove('active');
             otherItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
         });
         
-        // Se não estava ativo, abre
         if (!isActive) {
             item.classList.add('active');
             header.setAttribute('aria-expanded', 'true');
@@ -349,7 +360,7 @@ accordionItems.forEach(item => {
 });
 
 // ==========================================================
-// 8. SELETOR INTERATIVO DE PROJETOS PARA O WHATSAPP
+// 7. SELETOR INTERATIVO DE PROJETOS PARA O WHATSAPP
 // ==========================================================
 const selectorChips = document.querySelectorAll('.selector-chip');
 const btnWhatsApp = document.getElementById('btn-whatsapp');
@@ -357,23 +368,19 @@ const whatsappPhone = "5513996287485";
 
 selectorChips.forEach(chip => {
     chip.addEventListener('click', () => {
-        // Remove estado ativo de todos os chips
         selectorChips.forEach(c => c.classList.remove('active'));
-        
-        // Ativa o clicado
         chip.classList.add('active');
         
         const serviceName = chip.getAttribute('data-service');
         const customMessage = `Olá Natan, gostaria de conversar sobre um projeto de ${serviceName}!`;
         const encodedMessage = encodeURIComponent(customMessage);
         
-        // Atualiza dinamicamente o link do WhatsApp
         btnWhatsApp.href = `https://wa.me/${whatsappPhone}?text=${encodedMessage}`;
     });
 });
 
 // ==========================================================
-// 9. CÓPIA DE E-MAIL COM 1 CLIQUE & FEEDBACK VISUAL
+// 8. CÓPIA DE E-MAIL COM 1 CLIQUE & FEEDBACK VISUAL
 // ==========================================================
 const btnCopyEmail = document.getElementById('btn-copy-email');
 const copyEmailText = document.getElementById('copy-email-text');
@@ -400,7 +407,7 @@ if (btnCopyEmail) {
 }
 
 // ==========================================================
-// 10. RELÓGIO EM TEMPO REAL NO RODAPÉ (FUSO DE BRASÍLIA)
+// 9. RELÓGIO EM TEMPO REAL NO RODAPÉ (FUSO DE BRASÍLIA)
 // ==========================================================
 const clockEl = document.getElementById('brasilia-clock');
 
@@ -428,7 +435,7 @@ setInterval(updateBrasiliaClock, 1000);
 updateBrasiliaClock();
 
 // ==========================================================
-// 11. BOTÃO VOLTAR AO TOPO
+// 10. BOTÃO VOLTAR AO TOPO
 // ==========================================================
 const backToTopBtn = document.getElementById('back-to-top');
 if (backToTopBtn) {
@@ -439,3 +446,9 @@ if (backToTopBtn) {
         });
     });
 }
+
+// Garantir recálculo de posições após carregamento completo
+window.addEventListener('load', () => {
+    resizeCanvas();
+    ScrollTrigger.refresh();
+});
