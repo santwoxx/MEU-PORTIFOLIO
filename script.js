@@ -28,7 +28,6 @@ let lastRenderedFrame = -1;
 const preloaderScreen = document.getElementById('preloader-screen');
 const preloaderBar = document.getElementById('preloader-bar');
 const preloaderPct = document.getElementById('preloader-pct');
-const preloaderStatus = document.getElementById('preloader-status');
 
 // Bloquear scroll durante o carregamento inicial
 document.body.style.overflow = 'hidden';
@@ -43,7 +42,6 @@ function updatePreloaderProgress() {
   
   if (preloaderBar) preloaderBar.style.width = pct + '%';
   if (preloaderPct) preloaderPct.textContent = pct + '%';
-  if (preloaderStatus) preloaderStatus.textContent = `Carregando modelo 3D... [${loadedCount}/${frameCount}]`;
   
   // Quando 100% dos frames estiverem carregados
   if (loadedCount >= frameCount) {
@@ -58,7 +56,6 @@ function finishPreloader() {
   
   if (preloaderBar) preloaderBar.style.width = '100%';
   if (preloaderPct) preloaderPct.textContent = '100%';
-  if (preloaderStatus) preloaderStatus.textContent = 'Pronto!';
   
   // Renderizar o primeiro frame
   resizeCanvas();

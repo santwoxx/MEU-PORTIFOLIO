@@ -125,17 +125,17 @@
 
 .preloader-info {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-family: var(--font-mono);
-    font-size: 12px;
-    color: #888888;
+    margin-top: 4px;
 }
 
 .preloader-pct {
-    font-weight: 700;
-    color: #ffffff;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 13px;
+    letter-spacing: 1.5px;
 }
 
 /* =========================================
