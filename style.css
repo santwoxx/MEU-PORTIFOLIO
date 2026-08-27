@@ -1,21 +1,23 @@
 /* =========================================
-   DESIGN SYSTEM & VARIABLES
+   DESIGN SYSTEM & LUXURY COLOR TOKENS
    ========================================= */
 :root {
     --bg-primary: #ffffff;
     --bg-secondary: #f8fafc;
-    --bg-card: rgba(255, 255, 255, 0.75);
+    --bg-card: rgba(255, 255, 255, 0.85);
     --bg-dark: #0a0a0a;
     --bg-dark-card: #121212;
     
     --text-primary: #0a0a0a;
     --text-secondary: #4a4a4a;
-    --text-muted: #888888;
+    --text-muted: #71717a;
     --text-light: #f5f5f5;
     
-    --accent-blue: #0066ff;
-    --accent-blue-light: #3b82f6;
-    --accent-blue-glow: rgba(0, 102, 255, 0.15);
+    /* Azul Mais Escuro, Nobre e Executivo (Safira Profundo) */
+    --accent-blue: #093cb5;
+    --accent-blue-deep: #05267a;
+    --accent-blue-light: #1e40af;
+    --accent-blue-glow: rgba(9, 60, 181, 0.15);
     --accent-whatsapp: #25d366;
     --accent-whatsapp-glow: rgba(37, 211, 102, 0.25);
     
@@ -33,7 +35,6 @@
     
     --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.04);
     --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 0 30px rgba(0, 102, 255, 0.2);
 }
 
 /* =========================================
@@ -48,6 +49,7 @@
 html {
     scroll-behavior: smooth;
     background-color: var(--bg-primary);
+    overflow-x: hidden;
 }
 
 body {
@@ -57,14 +59,15 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    width: 100%;
     
     /* Cursor Tecnológico/Robô Padrão (Seta tech) */
-    cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4,4 L11,26 L14,16 L24,13 Z' fill='%23000000' stroke='%230066ff' stroke-width='2'/%3E%3Cline x1='9' y1='11' x2='14' y2='16' stroke='%230066ff' stroke-width='1.5'/%3E%3C/svg%3E") 4 4, auto;
+    cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4,4 L11,26 L14,16 L24,13 Z' fill='%23000000' stroke='%23093cb5' stroke-width='2'/%3E%3Cline x1='9' y1='11' x2='14' y2='16' stroke='%23093cb5' stroke-width='1.5'/%3E%3C/svg%3E") 4 4, auto;
 }
 
 /* Cursor Tecnológico/Robô para Interações (Mira futurista) */
 a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .accordion-header, .selector-chip, .back-to-top, input, select, textarea {
-    cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23000000' stroke-width='2' stroke-dasharray='4, 4'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%230066ff'/%3E%3Cpath d='M16,2 L16,6 M16,26 L16,30 M2,16 L6,16 M26,16 L30,16' stroke='%230066ff' stroke-width='2'/%3E%3C/svg%3E") 16 16, pointer !important;
+    cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23000000' stroke-width='2' stroke-dasharray='4, 4'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23093cb5'/%3E%3Cpath d='M16,2 L16,6 M16,26 L16,30 M2,16 L6,16 M26,16 L30,16' stroke='%23093cb5' stroke-width='2'/%3E%3C/svg%3E") 16 16, pointer !important;
 }
 
 /* =========================================
@@ -76,7 +79,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 2; /* Fica acima do fundo e abaixo dos cards */
+    z-index: 2;
     pointer-events: none;
 }
 
@@ -88,13 +91,13 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     top: 0;
     left: 0;
     width: 100%;
-    padding: 24px 50px;
+    padding: 20px 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
     transition: var(--transition-fast);
-    pointer-events: none; /* Deixa cliques passarem exceto nos botões */
+    pointer-events: none;
 }
 
 .main-header > * {
@@ -102,11 +105,11 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 .main-header.scrolled {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-subtle);
-    padding: 16px 50px;
+    padding: 14px 48px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
@@ -125,6 +128,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
     user-select: none;
     letter-spacing: 1px;
+    line-height: 1;
 }
 
 .status-badge {
@@ -158,9 +162,9 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 24px;
-    background: rgba(255, 255, 255, 0.7);
-    padding: 8px 16px;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 6px 16px;
     border-radius: 100px;
     border: 1px solid var(--border-subtle);
     backdrop-filter: blur(12px);
@@ -202,6 +206,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 .scroll-container {
     position: relative;
     height: 800vh;
+    width: 100%;
 }
 
 #hero-canvas {
@@ -224,13 +229,13 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     translate: 0 -50%;
     transform: scale(0.95);
     width: 90%;
-    max-width: 460px;
-    background: rgba(255, 255, 255, 0.7);
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.72);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--border-medium);
     border-radius: 24px;
-    padding: 38px;
+    padding: 36px;
     box-shadow: var(--shadow-hover);
     z-index: 10;
     
@@ -252,15 +257,15 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     font-weight: 700;
     color: var(--accent-blue);
     letter-spacing: 2px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-transform: uppercase;
 }
 
 .project-modal h2 {
     font-family: var(--font-heading);
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     background: linear-gradient(135deg, #0a0a0a 0%, #333333 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -274,7 +279,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     margin-bottom: 24px;
 }
 
-/* Camada que aparece ao passar o mouse */
+/* Camada de hover com GIF */
 .project-modal .hover-layer {
     position: absolute;
     top: 100%;
@@ -350,7 +355,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Posições variadas para os projetos */
+/* Posições dos modais no desktop */
 #project-1 { left: 10%; }
 #project-2 { right: 10%; left: auto; }
 #project-3 { left: 10%; }
@@ -411,7 +416,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     position: relative;
     max-width: 1240px;
     margin: 0 auto;
-    padding: 120px 32px;
+    padding: 130px 32px;
     z-index: 10;
     background-color: var(--bg-primary);
 }
@@ -433,7 +438,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(32px, 4vw, 48px);
+    font-size: clamp(30px, 3.8vw, 48px);
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.15;
@@ -442,17 +447,19 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 .section-subtitle {
-    font-size: clamp(16px, 1.5vw, 19px);
+    font-size: clamp(16px, 1.4vw, 19px);
     line-height: 1.6;
     color: var(--text-secondary);
     max-width: 650px;
 }
 
+/* Destaque em Azul Mais Escuro e Elegante */
 .text-accent {
-    color: #000000;
-    background: linear-gradient(135deg, #000000 0%, #3b82f6 100%);
+    color: var(--accent-blue-deep);
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-deep) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: inherit;
 }
 
 /* =========================================
@@ -469,9 +476,9 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 
 .reveal-text {
     font-family: var(--font-heading);
-    font-size: clamp(30px, 4.2vw, 54px);
+    font-size: clamp(28px, 3.8vw, 50px);
     font-weight: 700;
-    line-height: 1.22;
+    line-height: 1.25;
     letter-spacing: -0.03em;
     color: #111111;
 }
@@ -521,7 +528,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     transform: translate(3px, -3px);
 }
 
-/* Grid de Pilares / Métricas */
+/* Grid de Pilares */
 .pillars-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -592,7 +599,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     font-size: 11px;
     font-weight: 700;
     padding: 4px 10px;
-    background: rgba(0, 102, 255, 0.08);
+    background: rgba(9, 60, 181, 0.08);
     color: var(--accent-blue);
     border-radius: 6px;
     letter-spacing: 1px;
@@ -623,7 +630,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 
 .accordion-header {
     width: 100%;
-    padding: 32px 16px;
+    padding: 30px 16px;
     background: transparent;
     border: none;
     display: flex;
@@ -635,13 +642,13 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 .accordion-header:hover {
-    padding-left: 24px;
+    padding-left: 22px;
 }
 
 .acc-title-left {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
 }
 
 .acc-num {
@@ -659,7 +666,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 
 .acc-title {
     font-family: var(--font-heading);
-    font-size: clamp(20px, 2.5vw, 28px);
+    font-size: clamp(20px, 2.3vw, 28px);
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.02em;
@@ -675,6 +682,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     justify-content: center;
     position: relative;
     transition: var(--transition-smooth);
+    flex-shrink: 0;
 }
 
 .acc-icon {
@@ -722,7 +730,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 .accordion-body {
-    padding: 0 16px 36px 72px;
+    padding: 0 16px 36px 68px;
 }
 
 .acc-desc {
@@ -766,14 +774,14 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    padding: 50px 0;
+    padding: 44px 0;
     background: #0a0a0a;
     color: #ffffff;
     overflow: hidden;
     z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
 }
 
 .marquee-track {
@@ -797,7 +805,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     gap: 30px;
     padding-right: 30px;
     font-family: var(--font-heading);
-    font-size: clamp(22px, 3vw, 36px);
+    font-size: clamp(20px, 2.6vw, 34px);
     font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -898,10 +906,10 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 .contact-card-wrapper {
-    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafd 100%);
     border: 1px solid var(--border-medium);
     border-radius: 32px;
-    padding: 64px 48px;
+    padding: clamp(36px, 5vw, 64px) clamp(20px, 4vw, 48px);
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
     text-align: center;
     max-width: 960px;
@@ -917,15 +925,15 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(0, 102, 255, 0.05) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(9, 60, 181, 0.05) 0%, transparent 60%);
     pointer-events: none;
 }
 
 .contact-big-title {
     font-family: var(--font-heading);
-    font-size: clamp(30px, 4vw, 44px);
+    font-size: clamp(26px, 3.8vw, 44px);
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.22;
     letter-spacing: -0.03em;
     color: var(--text-primary);
     margin-bottom: 18px;
@@ -935,7 +943,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 .contact-description {
-    font-size: 17px;
+    font-size: 16.5px;
     line-height: 1.65;
     color: var(--text-secondary);
     max-width: 600px;
@@ -948,11 +956,11 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
-    margin-bottom: 40px;
+    margin-bottom: 38px;
 }
 
 .selector-chip {
-    padding: 12px 22px;
+    padding: 11px 20px;
     background: #ffffff;
     border: 1px solid var(--border-medium);
     border-radius: 100px;
@@ -981,7 +989,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
     margin-bottom: 36px;
     flex-wrap: wrap;
 }
@@ -1034,6 +1042,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     justify-content: center;
     align-items: center;
     gap: 16px;
+    flex-wrap: wrap;
 }
 
 .social-link {
@@ -1060,7 +1069,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     position: relative;
     background: #0a0a0a;
     color: #ffffff;
-    padding: 80px 50px 40px 50px;
+    padding: 80px 48px 40px 48px;
     z-index: 10;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -1070,15 +1079,16 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     margin: 0 auto 60px auto;
     display: grid;
     grid-template-columns: 2fr 1fr 1.5fr;
-    gap: 50px;
+    gap: 48px;
 }
 
 .footer-watermark {
     font-family: var(--font-script);
-    font-size: 44px;
+    font-size: 42px;
     color: #ffffff;
     margin-bottom: 14px;
     letter-spacing: 1px;
+    line-height: 1;
 }
 
 .footer-tagline {
@@ -1225,7 +1235,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 /* =========================================
-   RESPONSIVIDADE & MOBILE
+   RESPONSIVIDADE COMPLETA (MOBILE / TABLET)
    ========================================= */
 @media (max-width: 1100px) {
     .pillars-grid {
@@ -1233,7 +1243,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     }
 
     .process-timeline {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -1243,56 +1253,96 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     }
     
     .nav-links {
-        display: none; /* Oculta links do header no mobile para manter limpo */
+        display: none;
     }
 
     .status-badge {
         display: none;
     }
 
+    .watermark-name {
+        font-size: 32px;
+    }
+
+    /* Modal otimizado para mobile */
     .project-modal {
-        left: 5% !important;
-        right: 5% !important;
-        width: 90% !important;
-        max-width: none;
-        top: 90px !important;
+        left: 16px !important;
+        right: 16px !important;
+        width: auto !important;
+        max-width: none !important;
+        top: 80px !important;
         translate: 0 0 !important;
-        padding: 24px !important;
+        padding: 22px 20px !important;
         border-radius: 20px !important;
+    }
+
+    .project-modal h2 {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .project-modal p {
+        font-size: 13.5px;
+        line-height: 1.55;
+        margin-bottom: 16px;
     }
 
     .section-container {
         padding: 80px 20px;
     }
 
+    .about-section {
+        padding-top: 100px;
+    }
+
     .about-subtext {
         flex-direction: column;
         gap: 24px;
+        margin-bottom: 40px;
+    }
+
+    .about-subtext p {
+        font-size: 16px;
     }
 
     .pillars-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .process-timeline {
         grid-template-columns: 1fr;
+        gap: 14px;
     }
 
     .accordion-header {
-        padding: 24px 8px;
+        padding: 22px 8px;
     }
 
     .acc-title-left {
         gap: 16px;
     }
 
+    .acc-num {
+        font-size: 15px;
+    }
+
     .accordion-body {
-        padding: 0 8px 24px 44px;
+        padding: 0 8px 24px 40px;
     }
 
     .contact-card-wrapper {
-        padding: 40px 20px;
+        padding: 36px 18px;
         border-radius: 24px;
+    }
+
+    .project-selector {
+        gap: 8px;
+    }
+
+    .selector-chip {
+        padding: 10px 16px;
+        font-size: 13px;
     }
 
     .contact-actions-hub {
@@ -1304,16 +1354,41 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     .btn-copy-email {
         width: 100%;
         justify-content: center;
+        padding: 16px 24px;
+        font-size: 15px;
+    }
+
+    .main-footer {
+        padding: 60px 24px 30px 24px;
     }
 
     .footer-top-row {
         grid-template-columns: 1fr;
         gap: 36px;
+        margin-bottom: 40px;
     }
 
     .footer-bottom-row {
         flex-direction: column;
         gap: 20px;
         text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .watermark-name {
+        font-size: 28px;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .reveal-text {
+        font-size: 24px;
+    }
+
+    .contact-big-title {
+        font-size: 23px;
     }
 }

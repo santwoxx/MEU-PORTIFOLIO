@@ -2,14 +2,18 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // ==========================================================
-// 1. HERO CANVAS 3D SCROLL ANIMATION (271 FRAMES PRESERVADOS)
+// 1. HERO CANVAS 3D SCROLL ANIMATION (ULTRA-FLUIDA & SEM ENGASGOS)
 // ==========================================================
 const canvas = document.getElementById("hero-canvas");
-const context = canvas.getContext("2d");
+const context = canvas.getContext("2d", { alpha: true });
+
+// Configuração de alta fidelidade visual
+context.imageSmoothingEnabled = true;
+context.imageSmoothingQuality = "high";
 
 const frameCount = 271;
 
-// Função para gerar o caminho de cada frame
+// Caminho dos frames
 const currentFrame = index => (
   `./frames/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.png`
 );
@@ -20,15 +24,19 @@ const frameData = { frame: 0 };
 let renderProps = null;
 let lastRenderedFrame = -1;
 
-// Responsividade do canvas
+// Responsividade e redimensionamento preciso do Canvas
 function resizeCanvas() {
   if (!canvas) return;
   
   const rect = canvas.getBoundingClientRect();
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
+  canvas.width = Math.round(rect.width * dpr);
+  canvas.height = Math.round(rect.height * dpr);
+  
+  // Reconfigurar suavização após resize
+  context.imageSmoothingEnabled = true;
+  context.imageSmoothingQuality = "high";
   
   const firstValidImg = images.find(img => img && img.complete && img.width > 0);
   if (firstValidImg) {
@@ -58,7 +66,7 @@ function calculateRenderProps(img) {
 
 window.addEventListener("resize", resizeCanvas);
 
-// Carregamento otimizado (Progressivo com fallback robusto)
+// Pré-carregamento de alta performance
 function initPreloader() {
   const firstImage = new Image();
   firstImage.src = currentFrame(0);
@@ -67,18 +75,19 @@ function initPreloader() {
     images[0] = firstImage;
     resizeCanvas();
     render();
-    startSequentialPreload();
+    startFastPreload();
     ScrollTrigger.refresh();
   };
   
   firstImage.onerror = () => {
-    startSequentialPreload();
+    startFastPreload();
   };
 }
 
-// Carrega o restante das imagens em lotes simultâneos
-function startSequentialPreload() {
+// Carregamento paralelo em lotes balanceados
+function startFastPreload() {
   let currentIndex = 1;
+  const concurrentLimit = 6;
   
   function loadNext() {
     if (currentIndex >= frameCount) return;
@@ -96,26 +105,24 @@ function startSequentialPreload() {
       
       const currentFrameIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
       if (currentFrameIndex === index || lastRenderedFrame === -1) {
-        lastRenderedFrame = -1;
         render();
       }
       loadNext();
     };
     
     img.onerror = () => {
-      loadNext(); 
+      loadNext();
     };
   }
   
-  // 4 threads de carregamento simultâneo
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < concurrentLimit; i++) {
     loadNext();
   }
 }
 
 initPreloader();
 
-// Animação dos frames conectada ao scroll
+// Animação dos frames conectada ao scroll com máxima fluidez
 gsap.to(frameData, {
   frame: frameCount - 1,
   ease: "none",
@@ -123,18 +130,39 @@ gsap.to(frameData, {
     trigger: ".scroll-container",
     start: "top top",
     end: "bottom bottom",
-    scrub: 1.5,
+    scrub: 1.0, // Resposta ultra-suave e responsiva
     fastScrollEnd: true,
+    invalidateOnRefresh: true,
     onUpdate: render
   }
 });
 
-// Função para desenhar a imagem atual no canvas
+// Renderizador com proteção contra engasgos (Fallback inteligente para o frame mais próximo)
 function render() {
-  const currentFrameIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
-  if (currentFrameIndex === lastRenderedFrame && lastRenderedFrame !== -1) return;
+  const targetIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
+  if (targetIndex === lastRenderedFrame && lastRenderedFrame !== -1) return;
   
-  const img = images[currentFrameIndex] || images[0];
+  let img = images[targetIndex];
+  
+  // Se o frame exato ainda estiver carregando, usa o vizinho mais próximo carregado
+  if (!img || !img.complete || img.width === 0) {
+    for (let offset = 1; offset < 20; offset++) {
+      const prev = images[targetIndex - offset];
+      if (prev && prev.complete && prev.width > 0) {
+        img = prev;
+        break;
+      }
+      const next = images[targetIndex + offset];
+      if (next && next.complete && next.width > 0) {
+        img = next;
+        break;
+      }
+    }
+  }
+  
+  if (!img || !img.complete || img.width === 0) {
+    img = images[0];
+  }
   
   if (img && img.complete && img.width > 0) {
     if (!renderProps) {
@@ -142,15 +170,18 @@ function render() {
     }
     
     if (renderProps) {
-      lastRenderedFrame = currentFrameIndex;
+      lastRenderedFrame = targetIndex;
       context.clearRect(0, 0, canvas.width, canvas.height);
-      context.drawImage(img, 0, 0, img.width, img.height,
-                        renderProps.x, renderProps.y, renderProps.width, renderProps.height);
+      context.drawImage(
+        img,
+        0, 0, img.width, img.height,
+        renderProps.x, renderProps.y, renderProps.width, renderProps.height
+      );
     }
   }
 }
 
-// Ocultar o indicador de scroll (mousezinho) ao começar a rolar
+// Ocultar indicador de scroll
 gsap.to(".scroll-indicator", {
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -284,7 +315,7 @@ fullscreenOverlay.addEventListener('click', (e) => {
 // ==========================================================
 const mainHeader = document.getElementById('main-header');
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 80) {
+    if (window.scrollY > 60) {
         mainHeader.classList.add('scrolled');
     } else {
         mainHeader.classList.remove('scrolled');
@@ -294,45 +325,42 @@ window.addEventListener('scroll', () => {
 // ==========================================================
 // 5. ANIMAÇÕES GSAP PARA AS NOVAS SEÇÕES
 // ==========================================================
-// Revelação de Pilares na Seção Sobre
 gsap.from(".pillar-card", {
     scrollTrigger: {
         trigger: ".pillars-grid",
         start: "top 85%",
         toggleActions: "play none none reverse"
     },
-    y: 40,
+    y: 35,
     opacity: 0,
     duration: 0.8,
-    stagger: 0.15,
+    stagger: 0.12,
     ease: "power3.out"
 });
 
-// Revelação da Metodologia / Processo
 gsap.from(".process-card", {
     scrollTrigger: {
         trigger: ".process-timeline",
         start: "top 85%",
         toggleActions: "play none none reverse"
     },
-    y: 35,
+    y: 30,
     opacity: 0,
     duration: 0.7,
-    stagger: 0.12,
+    stagger: 0.1,
     ease: "power3.out"
 });
 
-// Revelação do Card de Contato
 gsap.from(".contact-card-wrapper", {
     scrollTrigger: {
         trigger: ".contact-section",
         start: "top 80%",
         toggleActions: "play none none reverse"
     },
-    scale: 0.95,
-    y: 40,
+    scale: 0.96,
+    y: 30,
     opacity: 0,
-    duration: 0.9,
+    duration: 0.8,
     ease: "power3.out"
 });
 
@@ -364,7 +392,7 @@ accordionItems.forEach(item => {
 // ==========================================================
 const selectorChips = document.querySelectorAll('.selector-chip');
 const btnWhatsApp = document.getElementById('btn-whatsapp');
-const whatsappPhone = "5513996287485";
+const whatsappPhone = "5573991422872"; // Número atualizado
 
 selectorChips.forEach(chip => {
     chip.addEventListener('click', () => {
@@ -447,7 +475,7 @@ if (backToTopBtn) {
     });
 }
 
-// Garantir recálculo de posições após carregamento completo
+// Recálculo ao carregar completamente
 window.addEventListener('load', () => {
     resizeCanvas();
     ScrollTrigger.refresh();
