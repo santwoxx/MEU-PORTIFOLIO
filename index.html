@@ -4,28 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio - Animação de Scroll</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6">
+    <title>Natan Marinho — Estruturação Digital & Web Experiences</title>
+    <meta name="description" content="Especialista em Estruturação Digital, Sites de Alto Padrão, Landing Pages de Alta Conversão e Experiências Web Interativas.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 
 <body>
-    <!-- Watermark -->
-    <div class="watermark">Natan Marinho</div>
-
-    <!-- Canvas for Fluid Cursor -->
+    <!-- Canvas for Fluid Cursor (Interativo em toda a página) -->
     <canvas id="fluid-canvas" class="fluid-cursor-canvas"></canvas>
 
-    <div class="scroll-container">
+    <!-- Header & Navigation Bar -->
+    <header class="main-header" id="main-header">
+        <a href="#hero-section" class="brand-watermark">
+            <span class="watermark-name">Natan Marinho</span>
+            <span class="status-badge"><span class="status-dot"></span> Disponível para novos projetos</span>
+        </a>
+        <nav class="nav-links">
+            <a href="#hero-section" class="nav-item">Projetos</a>
+            <a href="#about" class="nav-item">Sobre</a>
+            <a href="#services" class="nav-item">Serviços</a>
+            <a href="#process" class="nav-item">Processo</a>
+            <a href="#contact" class="nav-item nav-btn">Contato ↗</a>
+        </nav>
+    </header>
+
+    <!-- =========================================
+         1. SEÇÃO HERO 3D + PROJETOS (PRESERVADA)
+         ========================================= -->
+    <div class="scroll-container" id="hero-section">
         <!-- Canvas for the scroll animation -->
         <canvas id="hero-canvas"></canvas>
 
         <!-- Project Modals -->
         <article class="project-modal" id="project-1" tabindex="0" aria-labelledby="title-project-1">
+            <div class="project-number">01 / 05</div>
             <h2 id="title-project-1">Central AutoCar</h2>
-            <p>Site institucional moderno e responsivo para uma grande empresa de pneus, projetado para alta conversão e
-                excelente usabilidade mobile.</p>
+            <p>Site institucional moderno e responsivo para uma grande empresa de pneus, projetado para alta conversão e excelente usabilidade mobile.</p>
 
             <div class="hover-layer">
                 <div class="media-preview-container">
@@ -35,8 +56,9 @@
         </article>
 
         <article class="project-modal" id="project-2" tabindex="0" aria-labelledby="title-project-2">
+            <div class="project-number">02 / 05</div>
             <h2 id="title-project-2">WA FORT</h2>
-            <p>Site institucional criado para uma empresa de segurança eletrônica.</p>
+            <p>Site institucional criado para uma empresa de segurança eletrônica com foco em autoridade e captação de clientes.</p>
             
             <div class="hover-layer">
                 <div class="media-preview-container">
@@ -46,8 +68,9 @@
         </article>
 
         <article class="project-modal" id="project-3" tabindex="0" aria-labelledby="title-project-3">
+            <div class="project-number">03 / 05</div>
             <h2 id="title-project-3">Central Pneus - Vipal</h2>
-            <p>Site institucional projetado para uma empresa do setor automotivo e de pneus.</p>
+            <p>Site institucional projetado para uma empresa do setor automotivo e de pneus com arquitetura pensada na experiência do usuário.</p>
             
             <div class="hover-layer">
                 <div class="media-preview-container">
@@ -57,8 +80,9 @@
         </article>
 
         <article class="project-modal" id="project-4" tabindex="0" aria-labelledby="title-project-4">
+            <div class="project-number">04 / 05</div>
             <h2 id="title-project-4">Barcaça</h2>
-            <p>Site desenvolvido para um restaurante da região, focado em atrair clientes e destacar a gastronomia local.</p>
+            <p>Site desenvolvido para um restaurante renomado, focado em destacar a gastronomia e atrair reservas locais.</p>
             
             <div class="hover-layer">
                 <div class="media-preview-container">
@@ -68,10 +92,10 @@
         </article>
 
         <article class="project-modal" id="project-5" tabindex="0" aria-labelledby="title-project-5">
+            <div class="project-number">05 / 05</div>
             <h2 id="title-project-5">Landing Page Epsilon</h2>
-            <p>Página de alta conversão projetada para um grande lançamento de produto, com animações e copy
-                estratégico.</p>
-            <a href="#" class="btn" tabindex="-1">Visualizar Projeto</a>
+            <p>Página de alta conversão projetada para um grande lançamento de produto, com animações dinâmicas e copy estratégico.</p>
+            <a href="#contact" class="btn" tabindex="-1">Iniciar Projeto Semelhante</a>
             <div class="hover-layer">
                 <h3>Aguardando Link...</h3>
                 <p>Me envie os links para colocar aqui!</p>
@@ -84,9 +108,400 @@
         </div>
     </div>
 
+    <!-- =========================================
+         2. SEÇÃO SOBRE & MANIFESTO
+         ========================================= -->
+    <section class="section-container about-section" id="about">
+        <div class="section-badge">// SOBRE & MANIFESTO</div>
+        
+        <div class="about-headline" id="about-headline">
+            <p class="reveal-text">
+                Construo <span class="text-accent">ecossistemas digitais de alto padrão</span>, unindo <span class="text-accent">design de impacto</span>, <span class="text-accent">interatividade imersiva</span> e <span class="text-accent">foco absoluto em conversão</span> para posicionar marcas no mais alto nível do mercado.
+            </p>
+        </div>
 
+        <div class="about-subtext">
+            <p>
+                Sou <strong>Natan Marinho</strong>. Atuo na intersecção entre design visual de elite e engenharia de software de ponta. Desenvolvo websites institucionais, landing pages estratégicas e experiências interativas que geram autoridade instantânea e aceleram o crescimento do seu negócio.
+            </p>
+            <div class="about-cta-wrap">
+                <a href="#contact" class="btn-primary magnetic-btn">
+                    <span>Iniciar um Projeto Conosco</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+            </div>
+        </div>
 
-    <!-- Fullscreen Overlay -->
+        <!-- Pilares / Métricas de Excelência -->
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-icon">⚡</div>
+                <h3>Performance Extrema</h3>
+                <p>Carregamento ultrarrápido (sub-segundo) e código limpo, proporcionando notas máximas no Google PageSpeed e retenção do usuário.</p>
+                <div class="pillar-metric">99+ Score</div>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon">🎯</div>
+                <h3>Alta Conversão</h3>
+                <p>Estrutura pensada cientificamente na psicologia do cliente, guiando o olhar e estimulando a tomada de decisão.</p>
+                <div class="pillar-metric">100% Estratégico</div>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon">💎</div>
+                <h3>Design Exclusivo</h3>
+                <p>Interfaces autorais e memoráveis, livres de templates genéricos, refletindo a sofisticação da sua empresa.</p>
+                <div class="pillar-metric">100% Autoral</div>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon">📱</div>
+                <h3>Fluidez Multitela</h3>
+                <p>Experiência de navegação perfeita e adaptada meticulosamente para smartphones, tablets e monitores ultra-wide.</p>
+                <div class="pillar-metric">Responsivo</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         3. SEÇÃO ECOSSISTEMA & SERVIÇOS
+         ========================================= -->
+    <section class="section-container services-section" id="services">
+        <div class="section-header-block">
+            <div class="section-badge">// ECOSSISTEMA DIGITAL</div>
+            <h2 class="section-title">Soluções completas para transformar sua presença na web</h2>
+            <p class="section-subtitle">Arquitetura digital projetada de ponta a ponta para maximizar autoridade, conversão e retenção.</p>
+        </div>
+
+        <div class="accordion-container" id="services-accordion">
+            <!-- Accordion Item 1 -->
+            <div class="accordion-item active" data-index="1">
+                <button class="accordion-header" aria-expanded="true">
+                    <div class="acc-title-left">
+                        <span class="acc-num">01</span>
+                        <span class="acc-title">Estruturação Digital & Sites Premium</span>
+                    </div>
+                    <div class="acc-icon-wrap">
+                        <span class="acc-icon"></span>
+                    </div>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p class="acc-desc">
+                            Desenvolvimento de sites institucionais de alto padrão, portais corporativos e plataformas sob medida. Construímos a vitrine definitiva da sua empresa na internet com elegância, autoridade e solidez tecnológica.
+                        </p>
+                        <div class="acc-tags">
+                            <span class="tag">Sites Institucionais</span>
+                            <span class="tag">Portais Corporativos</span>
+                            <span class="tag">SEO Técnico</span>
+                            <span class="tag">Arquitetura de Marca</span>
+                            <span class="tag">Segurança & SSL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 2 -->
+            <div class="accordion-item" data-index="2">
+                <button class="accordion-header" aria-expanded="false">
+                    <div class="acc-title-left">
+                        <span class="acc-num">02</span>
+                        <span class="acc-title">Landing Pages de Alta Conversão</span>
+                    </div>
+                    <div class="acc-icon-wrap">
+                        <span class="acc-icon"></span>
+                    </div>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p class="acc-desc">
+                            Páginas estratégicas voltadas para lançamentos de produtos, infoprodutos, serviços de alto ticket e captação massiva de leads. Unimos copywriting persuasivo, blocos de quebra de objeções e chamadas para ação irresistíveis.
+                        </p>
+                        <div class="acc-tags">
+                            <span class="tag">Páginas de Vendas</span>
+                            <span class="tag">Lançamentos</span>
+                            <span class="tag">Copywriting Estratégico</span>
+                            <span class="tag">Testes A/B</span>
+                            <span class="tag">Gatilhos de Conversão</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 3 -->
+            <div class="accordion-item" data-index="3">
+                <button class="accordion-header" aria-expanded="false">
+                    <div class="acc-title-left">
+                        <span class="acc-num">03</span>
+                        <span class="acc-title">UI/UX Design, Micro-interações & Motion</span>
+                    </div>
+                    <div class="acc-icon-wrap">
+                        <span class="acc-icon"></span>
+                    </div>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p class="acc-desc">
+                            Experiências digitais que prendem a atenção do visitante. Criação de layouts exclusivos no Figma, integração com micro-animações fluidas em GSAP, efeitos de cursor, transições cinematográficas e glassmorphism refinado.
+                        </p>
+                        <div class="acc-tags">
+                            <span class="tag">Prototipagem Figma</span>
+                            <span class="tag">GSAP Motion Design</span>
+                            <span class="tag">Micro-interações</span>
+                            <span class="tag">Experiências 3D/Canvas</span>
+                            <span class="tag">Glassmorphism</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 4 -->
+            <div class="accordion-item" data-index="4">
+                <button class="accordion-header" aria-expanded="false">
+                    <div class="acc-title-left">
+                        <span class="acc-num">04</span>
+                        <span class="acc-title">Automações de Atendimento, CRM & Escala</span>
+                    </div>
+                    <div class="acc-icon-wrap">
+                        <span class="acc-icon"></span>
+                    </div>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p class="acc-desc">
+                            Conecte seu site ao seu funil comercial. Implementação de redirecionamento inteligente para WhatsApp, integração com formulários automatizados, CRM de vendas e estratégias de SEO Local com Google Meu Negócio.
+                        </p>
+                        <div class="acc-tags">
+                            <span class="tag">Integração WhatsApp</span>
+                            <span class="tag">Google Meu Negócio</span>
+                            <span class="tag">Funis de Captação</span>
+                            <span class="tag">Rastreamento de Leads</span>
+                            <span class="tag">Automação de Vendas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         4. MARQUEE TIPOGRÁFICO INFINITO
+         ========================================= -->
+    <div class="marquee-wrapper">
+        <div class="marquee-track marquee-track-forward">
+            <div class="marquee-content">
+                <span>ESTRUTURAÇÃO DIGITAL</span>
+                <span class="marquee-dot">✦</span>
+                <span>DESIGN DE ALTO PADRÃO</span>
+                <span class="marquee-dot">✦</span>
+                <span>ALTA CONVERSÃO</span>
+                <span class="marquee-dot">✦</span>
+                <span>MICRO-INTERAÇÕES</span>
+                <span class="marquee-dot">✦</span>
+                <span>PERFORMANCE MÁXIMA</span>
+                <span class="marquee-dot">✦</span>
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                <span>ESTRUTURAÇÃO DIGITAL</span>
+                <span class="marquee-dot">✦</span>
+                <span>DESIGN DE ALTO PADRÃO</span>
+                <span class="marquee-dot">✦</span>
+                <span>ALTA CONVERSÃO</span>
+                <span class="marquee-dot">✦</span>
+                <span>MICRO-INTERAÇÕES</span>
+                <span class="marquee-dot">✦</span>
+                <span>PERFORMANCE MÁXIMA</span>
+                <span class="marquee-dot">✦</span>
+            </div>
+        </div>
+        <div class="marquee-track marquee-track-reverse">
+            <div class="marquee-content">
+                <span>EXPERIÊNCIAS WEB IMERSIVAS</span>
+                <span class="marquee-dot">✦</span>
+                <span>LANDING PAGES EXCLUSIVAS</span>
+                <span class="marquee-dot">✦</span>
+                <span>SITES INSTITUCIONAIS</span>
+                <span class="marquee-dot">✦</span>
+                <span>FOCO EM RESULTADOS</span>
+                <span class="marquee-dot">✦</span>
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                <span>EXPERIÊNCIAS WEB IMERSIVAS</span>
+                <span class="marquee-dot">✦</span>
+                <span>LANDING PAGES EXCLUSIVAS</span>
+                <span class="marquee-dot">✦</span>
+                <span>SITES INSTITUCIONAIS</span>
+                <span class="marquee-dot">✦</span>
+                <span>FOCO EM RESULTADOS</span>
+                <span class="marquee-dot">✦</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         5. SEÇÃO PROCESSO & METODOLOGIA
+         ========================================= -->
+    <section class="section-container process-section" id="process">
+        <div class="section-header-block">
+            <div class="section-badge">// METODOLOGIA DE TRABALHO</div>
+            <h2 class="section-title">Um processo claro, ágil e transparente</h2>
+            <p class="section-subtitle">Da concepção da ideia até o lançamento oficial, cada etapa segue padrões rigorosos de qualidade.</p>
+        </div>
+
+        <div class="process-timeline">
+            <!-- Step 1 -->
+            <div class="process-card">
+                <div class="process-header">
+                    <span class="process-step">Etapa 01</span>
+                    <span class="process-time">Dia 1</span>
+                </div>
+                <h3 class="process-name">Diagnóstico & Estratégia</h3>
+                <p class="process-info">Mapeamento aprofundado do seu modelo de negócio, perfil do cliente ideal, objetivos comerciais e diferenciais competitivos.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="process-card">
+                <div class="process-header">
+                    <span class="process-step">Etapa 02</span>
+                    <span class="process-time">Dia 2</span>
+                </div>
+                <h3 class="process-name">Arquitetura & Copywriting</h3>
+                <p class="process-info">Definição da estrutura de navegação, roteirização dos textos estratégicos e desenho do funil de conversão.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="process-card">
+                <div class="process-header">
+                    <span class="process-step">Etapa 03</span>
+                    <span class="process-time">Dias 3 a 7</span>
+                </div>
+                <h3 class="process-name">Design de Interface (UI/UX)</h3>
+                <p class="process-info">Criação visual exclusiva, com paleta de cores refinada, tipografia marcante e validação de protótipo de alta fidelidade.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="process-card">
+                <div class="process-header">
+                    <span class="process-step">Etapa 04</span>
+                    <span class="process-time">Dias 8 a 12</span>
+                </div>
+                <h3 class="process-name">Desenvolvimento & Motion</h3>
+                <p class="process-info">Programação de código limpo, micro-animações interativas, otimização de imagens, SEO e responsividade milimétrica.</p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="process-card">
+                <div class="process-header">
+                    <span class="process-step">Etapa 05</span>
+                    <span class="process-time">Dias 13 e 14</span>
+                </div>
+                <h3 class="process-name">Testes, Lançamento & Escala</h3>
+                <p class="process-info">Homologação completa de velocidade, testes em múltiplos dispositivos, publicação oficial e suporte pós-entrega.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         6. SEÇÃO CONTATO & CONVERSÃO
+         ========================================= -->
+    <section class="section-container contact-section" id="contact">
+        <div class="contact-card-wrapper">
+            <div class="section-badge">// VAMOS CONVERSAR</div>
+            <h2 class="contact-big-title">
+                Pronto para transformar sua presença digital em uma <span class="text-accent">máquina de resultados</span>?
+            </h2>
+            <p class="contact-description">
+                Selecione o tipo de projeto abaixo para iniciarmos um atendimento personalizado e exclusivo diretamente no WhatsApp:
+            </p>
+
+            <!-- Interactive Quick Project Selector -->
+            <div class="project-selector" id="project-selector">
+                <button class="selector-chip active" data-service="Site Institucional Premium">
+                    ✨ Site Institucional
+                </button>
+                <button class="selector-chip" data-service="Landing Page de Alta Conversão">
+                    🚀 Landing Page de Conversão
+                </button>
+                <button class="selector-chip" data-service="Reformulação & Otimização de Site">
+                    💎 Reformulação de Site
+                </button>
+                <button class="selector-chip" data-service="Estruturação Digital Completa">
+                    ⚡ Estruturação Completa
+                </button>
+            </div>
+
+            <!-- Action Buttons Hub -->
+            <div class="contact-actions-hub">
+                <a href="https://wa.me/5513996287485?text=Olá%20Natan,%20gostaria%20de%20um%20orçamento%20para%20Site%20Institucional%20Premium!" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" id="btn-whatsapp">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    <span>Falar no WhatsApp Agora</span>
+                </a>
+
+                <button class="btn-copy-email" id="btn-copy-email" data-email="natanmarinhooficial@gmail.com">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span id="copy-email-text">Copiar E-mail</span>
+                </button>
+            </div>
+
+            <!-- Social Links -->
+            <div class="contact-social-links">
+                <a href="https://wa.me/5513996287485" target="_blank" rel="noopener noreferrer" class="social-link">WhatsApp</a>
+                <span class="social-sep">•</span>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
+                <span class="social-sep">•</span>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
+                <span class="social-sep">•</span>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         7. RODAPÉ EDITORIAL
+         ========================================= -->
+    <footer class="main-footer" id="footer">
+        <div class="footer-top-row">
+            <div class="footer-brand-col">
+                <div class="footer-watermark">Natan Marinho</div>
+                <p class="footer-tagline">Estruturação Digital, Sites de Alto Padrão & Experiências Web de Alta Conversão.</p>
+            </div>
+            
+            <div class="footer-nav-col">
+                <div class="footer-heading">Navegação</div>
+                <div class="footer-links">
+                    <a href="#hero-section">Projetos</a>
+                    <a href="#about">Sobre</a>
+                    <a href="#services">Serviços</a>
+                    <a href="#process">Processo</a>
+                    <a href="#contact">Contato</a>
+                </div>
+            </div>
+
+            <div class="footer-info-col">
+                <div class="footer-heading">Localização & Fuso</div>
+                <div class="footer-time-badge" id="live-time-badge">
+                    <span class="clock-icon">🕒</span>
+                    <span id="brasilia-clock">Brasília: Carregando...</span>
+                </div>
+                <p class="footer-availability">Atendendo clientes em todo o Brasil e no exterior.</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom-row">
+            <div class="copyright-text">
+                © 2026 Natan Marinho. Todos os direitos reservados.
+            </div>
+            <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo da página">
+                <span>Voltar ao topo</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+            </button>
+        </div>
+    </footer>
+
+    <!-- =========================================
+         FULLSCREEN OVERLAY PARA PREVIEWS
+         ========================================= -->
     <div id="fullscreen-overlay" class="fullscreen-overlay">
         <span class="close-fullscreen">&times;</span>
         <img id="fullscreen-img" src="" alt="Fullscreen Preview">
@@ -96,8 +511,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <script src="fluid-cursor.js?v=7"></script>
-    <script src="script.js?v=7"></script>
+    <!-- Project Scripts -->
+    <script src="fluid-cursor.js?v=8"></script>
+    <script src="script.js?v=8"></script>
 </body>
 
 </html>
