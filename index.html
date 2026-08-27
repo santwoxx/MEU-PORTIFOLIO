@@ -16,10 +16,32 @@
     <link rel="preload" as="image" href="./frames/ezgif-frame-001.webp" fetchpriority="high">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="style.css?v=14">
 </head>
 
 <body>
+    <!-- =========================================
+         PRELOADER DE ALTO PADRÃO (CARREGAMENTO DOS FRAMES 3D)
+         ========================================= -->
+    <div id="preloader-screen" class="preloader-screen">
+        <div class="preloader-inner">
+            <div class="preloader-brand">
+                <div class="preloader-watermark">Natan Marinho</div>
+                <div class="preloader-studio">Sidarta Studio</div>
+            </div>
+            
+            <div class="preloader-progress-wrap">
+                <div class="preloader-bar-bg">
+                    <div class="preloader-bar" id="preloader-bar"></div>
+                </div>
+                <div class="preloader-info">
+                    <span class="preloader-status" id="preloader-status">Iniciando modelo 3D...</span>
+                    <span class="preloader-pct" id="preloader-pct">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Canvas for Fluid Cursor (Interativo em toda a página) -->
     <canvas id="fluid-canvas" class="fluid-cursor-canvas"></canvas>
 
@@ -524,8 +546,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <!-- Project Scripts -->
-    <script src="fluid-cursor.js?v=13"></script>
-    <script src="script.js?v=13"></script>
+    <script src="fluid-cursor.js?v=14"></script>
+    <script src="script.js?v=14"></script>
 </body>
 
 </html>

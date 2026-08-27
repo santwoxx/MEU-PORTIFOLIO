@@ -2,7 +2,7 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // ==========================================================
-// 1. HERO CANVAS 3D SCROLL ANIMATION (ULTRA-FLUIDA & SEM ENGASGOS)
+// 1. HERO CANVAS 3D SCROLL & PRELOADER SCREEN
 // ==========================================================
 const canvas = document.getElementById("hero-canvas");
 const context = canvas.getContext("2d", { alpha: true });
@@ -24,6 +24,56 @@ const frameData = { frame: 0 };
 let renderProps = null;
 let lastRenderedFrame = -1;
 
+// Elementos da Tela de Carregamento
+const preloaderScreen = document.getElementById('preloader-screen');
+const preloaderBar = document.getElementById('preloader-bar');
+const preloaderPct = document.getElementById('preloader-pct');
+const preloaderStatus = document.getElementById('preloader-status');
+
+// Bloquear scroll durante o carregamento inicial
+document.body.style.overflow = 'hidden';
+
+let loadedCount = 0;
+let isPreloaderFinished = false;
+
+// Atualiza o progresso visual da tela de carregamento
+function updatePreloaderProgress() {
+  loadedCount++;
+  const pct = Math.min(100, Math.round((loadedCount / frameCount) * 100));
+  
+  if (preloaderBar) preloaderBar.style.width = pct + '%';
+  if (preloaderPct) preloaderPct.textContent = pct + '%';
+  if (preloaderStatus) preloaderStatus.textContent = `Carregando modelo 3D... [${loadedCount}/${frameCount}]`;
+  
+  // Quando 100% dos frames estiverem carregados
+  if (loadedCount >= frameCount) {
+    finishPreloader();
+  }
+}
+
+// Conclui o preloader e revela o portfólio suavemente
+function finishPreloader() {
+  if (isPreloaderFinished) return;
+  isPreloaderFinished = true;
+  
+  if (preloaderBar) preloaderBar.style.width = '100%';
+  if (preloaderPct) preloaderPct.textContent = '100%';
+  if (preloaderStatus) preloaderStatus.textContent = 'Pronto!';
+  
+  // Renderizar o primeiro frame
+  resizeCanvas();
+  render();
+  
+  // Transição de saída suave da tela preta
+  setTimeout(() => {
+    if (preloaderScreen) {
+      preloaderScreen.classList.add('loaded');
+    }
+    document.body.style.overflow = '';
+    ScrollTrigger.refresh();
+  }, 350);
+}
+
 // Responsividade e redimensionamento preciso do Canvas
 function resizeCanvas() {
   if (!canvas) return;
@@ -34,7 +84,6 @@ function resizeCanvas() {
   canvas.width = Math.round(rect.width * dpr);
   canvas.height = Math.round(rect.height * dpr);
   
-  // Reconfigurar suavização após resize
   context.imageSmoothingEnabled = true;
   context.imageSmoothingQuality = "high";
   
@@ -66,30 +115,12 @@ function calculateRenderProps(img) {
 
 window.addEventListener("resize", resizeCanvas);
 
-// Pré-carregamento de alta performance
-function initPreloader() {
-  const firstImage = new Image();
-  firstImage.src = currentFrame(0);
+// Carregamento de todos os frames em paralelo com 12 threads simultâneas
+function startFullPreload() {
+  let currentIndex = 0;
+  const concurrentLimit = 12;
   
-  firstImage.onload = () => {
-    images[0] = firstImage;
-    resizeCanvas();
-    render();
-    startFastPreload();
-    ScrollTrigger.refresh();
-  };
-  
-  firstImage.onerror = () => {
-    startFastPreload();
-  };
-}
-
-// Carregamento paralelo em lotes balanceados
-function startFastPreload() {
-  let currentIndex = 1;
-  const concurrentLimit = 6;
-  
-  function loadNext() {
+  function worker() {
     if (currentIndex >= frameCount) return;
     
     const index = currentIndex++;
@@ -98,29 +129,34 @@ function startFastPreload() {
     
     img.onload = () => {
       images[index] = img;
-      
       if (!renderProps && img.width > 0) {
         calculateRenderProps(img);
       }
-      
-      const currentFrameIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
-      if (currentFrameIndex === index || lastRenderedFrame === -1) {
-        render();
-      }
-      loadNext();
+      updatePreloaderProgress();
+      worker();
     };
     
     img.onerror = () => {
-      loadNext();
+      images[index] = images[0] || img;
+      updatePreloaderProgress();
+      worker();
     };
   }
   
   for (let i = 0; i < concurrentLimit; i++) {
-    loadNext();
+    worker();
   }
 }
 
-initPreloader();
+// Inicia o pré-carregamento completo
+startFullPreload();
+
+// Timeout de segurança (para conexões muito lentas)
+setTimeout(() => {
+  if (!isPreloaderFinished && loadedCount >= 30) {
+    finishPreloader();
+  }
+}, 8000);
 
 // Animação dos frames conectada ao scroll com máxima fluidez
 gsap.to(frameData, {
@@ -130,21 +166,21 @@ gsap.to(frameData, {
     trigger: ".scroll-container",
     start: "top top",
     end: "bottom bottom",
-    scrub: 1.0, // Resposta ultra-suave e responsiva
+    scrub: 1.0, // Resposta ultra-suave e instantânea
     fastScrollEnd: true,
     invalidateOnRefresh: true,
     onUpdate: render
   }
 });
 
-// Renderizador com proteção contra engasgos (Fallback inteligente para o frame mais próximo)
+// Renderizador com proteção contra engasgos
 function render() {
   const targetIndex = Math.max(0, Math.min(frameCount - 1, Math.round(frameData.frame)));
   if (targetIndex === lastRenderedFrame && lastRenderedFrame !== -1) return;
   
   let img = images[targetIndex];
   
-  // Se o frame exato ainda estiver carregando, usa o vizinho mais próximo carregado
+  // Se o frame exato ainda estiver carregando, usa o vizinho mais próximo
   if (!img || !img.complete || img.width === 0) {
     for (let offset = 1; offset < 20; offset++) {
       const prev = images[targetIndex - offset];
@@ -181,7 +217,7 @@ function render() {
   }
 }
 
-// Ocultar indicador de scroll
+// Ocultar indicador de scroll ao começar a rolar
 gsap.to(".scroll-indicator", {
     scrollTrigger: {
         trigger: ".scroll-container",
