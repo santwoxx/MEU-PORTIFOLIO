@@ -435,7 +435,7 @@ if (btnCopyEmail) {
 }
 
 // ==========================================================
-// 9. RELÓGIO EM TEMPO REAL NO RODAPÉ (FUSO DE BRASÍLIA)
+// 9. RELÓGIO EM TEMPO REAL NO RODAPÉ (ITABUNA - BA)
 // ==========================================================
 const clockEl = document.getElementById('brasilia-clock');
 
@@ -445,17 +445,18 @@ function updateBrasiliaClock() {
     try {
         const now = new Date();
         const options = {
-            timeZone: 'America/Sao_Paulo',
+            timeZone: 'America/Bahia',
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
             hour12: false
         };
         const timeString = new Intl.DateTimeFormat('pt-BR', options).format(now);
-        clockEl.textContent = `Brasília: ${timeString}`;
+        clockEl.textContent = `Itabuna (BA): ${timeString}`;
     } catch (e) {
         const now = new Date();
-        clockEl.textContent = `Horário: ${now.toLocaleTimeString()}`;
+        const fallback = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(now);
+        clockEl.textContent = `Itabuna (BA): ${fallback}`;
     }
 }
 

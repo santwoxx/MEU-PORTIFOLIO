@@ -1,5 +1,5 @@
 /* =========================================
-   DESIGN SYSTEM & LUXURY COLOR TOKENS
+   DESIGN SYSTEM & LUXURY TYPOGRAPHY (ESTILO DIEGO CAMARGO)
    ========================================= */
 :root {
     --bg-primary: #ffffff;
@@ -25,8 +25,11 @@
     --border-medium: rgba(0, 0, 0, 0.14);
     --border-dark: rgba(255, 255, 255, 0.12);
     
+    /* Fontes no estilo editorial premium */
     --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    --font-heading: 'Syne', 'Plus Jakarta Sans', sans-serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-serif: 'Instrument Serif', Georgia, serif;
     --font-script: 'Great Vibes', cursive;
     --font-mono: 'Space Grotesk', monospace;
     
@@ -61,11 +64,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
     width: 100%;
     
-    /* Cursor Tecnológico/Robô Padrão (Seta tech) */
+    /* Cursor Tecnológico Padrão */
     cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4,4 L11,26 L14,16 L24,13 Z' fill='%23000000' stroke='%23093cb5' stroke-width='2'/%3E%3Cline x1='9' y1='11' x2='14' y2='16' stroke='%23093cb5' stroke-width='1.5'/%3E%3C/svg%3E") 4 4, auto;
 }
 
-/* Cursor Tecnológico/Robô para Interações (Mira futurista) */
+/* Cursor Tecnológico para Interações */
 a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .accordion-header, .selector-chip, .back-to-top, input, select, textarea {
     cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23000000' stroke-width='2' stroke-dasharray='4, 4'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23093cb5'/%3E%3Cpath d='M16,2 L16,6 M16,26 L16,30 M2,16 L6,16 M26,16 L30,16' stroke='%23093cb5' stroke-width='2'/%3E%3C/svg%3E") 16 16, pointer !important;
 }
@@ -116,7 +119,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 .brand-watermark {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     text-decoration: none;
     color: inherit;
 }
@@ -129,6 +132,18 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     user-select: none;
     letter-spacing: 1px;
     line-height: 1;
+}
+
+.studio-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: rgba(9, 60, 181, 0.08);
+    color: var(--accent-blue);
+    padding: 4px 10px;
+    border-radius: 6px;
 }
 
 .status-badge {
@@ -163,7 +178,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     display: flex;
     align-items: center;
     gap: 20px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     padding: 6px 16px;
     border-radius: 100px;
     border: 1px solid var(--border-subtle);
@@ -264,7 +279,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 .project-modal h2 {
     font-family: var(--font-heading);
     font-size: 26px;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 12px;
     background: linear-gradient(135deg, #0a0a0a 0%, #333333 100%);
     -webkit-background-clip: text;
@@ -327,6 +342,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     font-size: 20px;
     margin-top: 40px;
     text-align: center;
+    font-family: var(--font-heading);
 }
 
 .hover-layer p {
@@ -440,7 +456,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     font-family: var(--font-heading);
     font-size: clamp(30px, 3.8vw, 48px);
     font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.035em;
     line-height: 1.15;
     color: var(--text-primary);
     margin-bottom: 16px;
@@ -453,13 +469,18 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     max-width: 650px;
 }
 
-/* Destaque em Azul Mais Escuro e Elegante */
+/* Destaque Tipográfico com Serif Itálico de Luxo (Estilo Diego Camargo) */
 .text-accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15em;
+    line-height: 0.9;
     color: var(--accent-blue-deep);
     background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-deep) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: inherit;
+    display: inline-block;
 }
 
 /* =========================================
@@ -477,7 +498,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 .reveal-text {
     font-family: var(--font-heading);
     font-size: clamp(28px, 3.8vw, 50px);
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.25;
     letter-spacing: -0.03em;
     color: #111111;
@@ -667,7 +688,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 .acc-title {
     font-family: var(--font-heading);
     font-size: clamp(20px, 2.3vw, 28px);
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-primary);
     letter-spacing: -0.02em;
 }
@@ -886,7 +907,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 .process-name {
     font-family: var(--font-heading);
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 12px;
     color: var(--text-primary);
     line-height: 1.3;
@@ -934,7 +955,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     font-size: clamp(26px, 3.8vw, 44px);
     font-weight: 800;
     line-height: 1.22;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.035em;
     color: var(--text-primary);
     margin-bottom: 18px;
     max-width: 750px;
@@ -1049,12 +1070,12 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     text-decoration: none;
     color: var(--text-secondary);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     transition: var(--transition-fast);
 }
 
 .social-link:hover {
-    color: #000000;
+    color: var(--accent-blue);
 }
 
 .social-sep {
@@ -1086,9 +1107,20 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     font-family: var(--font-script);
     font-size: 42px;
     color: #ffffff;
-    margin-bottom: 14px;
+    margin-bottom: 8px;
     letter-spacing: 1px;
     line-height: 1;
+}
+
+.footer-studio-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888888;
+    margin-bottom: 14px;
 }
 
 .footer-tagline {
@@ -1261,7 +1293,11 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     }
 
     .watermark-name {
-        font-size: 32px;
+        font-size: 30px;
+    }
+
+    .studio-tag {
+        display: none;
     }
 
     /* Modal otimizado para mobile */
@@ -1377,7 +1413,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 
 @media (max-width: 480px) {
     .watermark-name {
-        font-size: 28px;
+        font-size: 26px;
     }
 
     .section-title {
