@@ -1,0 +1,6 @@
+# Os buscadores só leem o robots.txt na raiz do domínio.
+# Em santwoxx.github.io/MEU-PORTIFOLIO/ ele é ignorado; passa a valer quando o site tiver domínio próprio.
+User-agent: *
+Allow: /
+
+Sitemap: https://santwoxx.github.io/MEU-PORTIFOLIO/sitemap.xml

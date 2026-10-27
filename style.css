@@ -337,12 +337,19 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 
 /* Glassmorphism modals */
 .project-modal {
+    /* Os cards ficam ao lado do personagem sem encostar nele. Medindo os frames, a aba
+       do boné chega a 23,5% da largura da imagem a partir do centro quando a cabeça vira.
+       --hero-img-w reproduz a largura da imagem desenhada no canvas (ver calculateRenderProps
+       em script.js): canvas de até 100vw x 85vh, limitado a 1600x900, imagem 16:9. */
+    --hero-img-w: min(100vw, 1600px, 151.1vh);
+    --hero-free: calc(50% - 0.235 * var(--hero-img-w) - 24px);
+    /* 10% da borda quando há espaço; senão o card se afasta (mín. 32px) e estreita (mín. 360px) */
+    --modal-side: clamp(32px, calc(var(--hero-free) - 450px), 10%);
     position: fixed;
     top: 50%;
     translate: 0 -50%;
     transform: scale(0.95);
-    width: 90%;
-    max-width: 450px;
+    width: clamp(360px, calc(var(--hero-free) - var(--modal-side)), 450px);
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
@@ -471,11 +478,11 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 /* Posições dos modais no desktop */
-#project-1 { left: 10%; }
-#project-2 { right: 10%; left: auto; }
-#project-3 { left: 10%; }
-#project-4 { right: 10%; left: auto; }
-#project-5 { left: 10%; }
+#project-1 { left: var(--modal-side); }
+#project-2 { right: var(--modal-side); left: auto; }
+#project-3 { left: var(--modal-side); }
+#project-4 { right: var(--modal-side); left: auto; }
+#project-5 { left: var(--modal-side); }
 
 /* Indicador de Scroll */
 .scroll-indicator {
@@ -752,6 +759,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     text-align: left;
     outline: none;
     transition: var(--transition-fast);
@@ -841,8 +849,9 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
     transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Folga para o conteúdo aberto não ser cortado no celular */
 .accordion-item.active .accordion-content {
-    max-height: 300px;
+    max-height: 800px;
 }
 
 .accordion-body {
@@ -912,7 +921,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 .marquee-track-reverse {
-    animation: marqueeScrollReverse 32s linear infinite;
+    animation: marqueeScrollReverse 42s linear infinite;
 }
 
 .marquee-content {
@@ -1015,7 +1024,26 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 /* =========================================
-   6. SEÇÃO CONTATO & CONVERSÃO
+   6. SEÇÃO PERGUNTAS FREQUENTES (FAQ)
+   ========================================= */
+.faq-section {
+    border-top: 1px solid var(--border-subtle);
+}
+
+.faq-section .acc-title {
+    font-size: clamp(17px, 1.7vw, 21px);
+}
+
+.faq-section .accordion-body {
+    padding-left: 16px;
+}
+
+.faq-section .acc-desc {
+    margin-bottom: 0;
+}
+
+/* =========================================
+   7. SEÇÃO CONTATO & CONVERSÃO
    ========================================= */
 .contact-section {
     padding-bottom: 140px;
@@ -1179,7 +1207,7 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 }
 
 /* =========================================
-   7. RODAPÉ EDITORIAL
+   8. RODAPÉ EDITORIAL
    ========================================= */
 .main-footer {
     position: relative;
@@ -1462,6 +1490,10 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 
     .accordion-body {
         padding: 0 8px 24px 40px;
+    }
+
+    .faq-section .accordion-body {
+        padding-left: 8px;
     }
 
     .contact-card-wrapper {

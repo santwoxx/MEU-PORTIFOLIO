@@ -159,14 +159,16 @@ setTimeout(() => {
 gsap.to(frameData, {
   frame: frameCount - 1,
   ease: "none",
+  // No tween (e não no ScrollTrigger): redesenha também enquanto o scrub alcança o scroll,
+  // senão o canvas congela num frame atrasado quando o scroll para
+  onUpdate: render,
   scrollTrigger: {
     trigger: ".scroll-container",
     start: "top top",
     end: "bottom bottom",
     scrub: 1.0, // Resposta ultra-suave e instantânea
     fastScrollEnd: true,
-    invalidateOnRefresh: true,
-    onUpdate: render
+    invalidateOnRefresh: true
   }
 });
 
@@ -408,17 +410,19 @@ gsap.from(".contact-card-wrapper", {
 });
 
 // ==========================================================
-// 6. ACORDEÃO INTERATIVO DE SERVIÇOS
+// 6. ACORDEÕES INTERATIVOS (SERVIÇOS & FAQ)
 // ==========================================================
 const accordionItems = document.querySelectorAll('.accordion-item');
 
 accordionItems.forEach(item => {
     const header = item.querySelector('.accordion-header');
-    
+    // Cada acordeão controla só os próprios itens (serviços e FAQ são independentes)
+    const siblingItems = item.closest('.accordion-container').querySelectorAll('.accordion-item');
+
     header.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
-        
-        accordionItems.forEach(otherItem => {
+
+        siblingItems.forEach(otherItem => {
             otherItem.classList.remove('active');
             otherItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
         });
