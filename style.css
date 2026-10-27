@@ -482,7 +482,6 @@ a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .
 #project-2 { right: var(--modal-side); left: auto; }
 #project-3 { left: var(--modal-side); }
 #project-4 { right: var(--modal-side); left: auto; }
-#project-5 { left: var(--modal-side); }
 
 /* Indicador de Scroll */
 .scroll-indicator {

@@ -251,8 +251,8 @@ const modalHiddenState = {
 gsap.fromTo("#project-1", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
-        start: "8% top", 
-        end: "20% top",   
+        start: "10% top", 
+        end: "24% top",   
         toggleActions: "play reverse play reverse",
     },
     ...modalConfig
@@ -262,8 +262,8 @@ gsap.fromTo("#project-1", modalHiddenState, {
 gsap.fromTo("#project-2", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
-        start: "25% top", 
-        end: "37% top",
+        start: "32% top", 
+        end: "46% top",
         toggleActions: "play reverse play reverse",
     },
     ...modalConfig
@@ -273,8 +273,8 @@ gsap.fromTo("#project-2", modalHiddenState, {
 gsap.fromTo("#project-3", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
-        start: "42% top", 
-        end: "54% top",
+        start: "54% top", 
+        end: "68% top",
         toggleActions: "play reverse play reverse",
     },
     ...modalConfig
@@ -284,19 +284,8 @@ gsap.fromTo("#project-3", modalHiddenState, {
 gsap.fromTo("#project-4", modalHiddenState, {
     scrollTrigger: {
         trigger: ".scroll-container",
-        start: "59% top", 
-        end: "71% top",
-        toggleActions: "play reverse play reverse",
-    },
-    ...modalConfig
-});
-
-// Projeto 5
-gsap.fromTo("#project-5", modalHiddenState, {
-    scrollTrigger: {
-        trigger: ".scroll-container",
         start: "76% top", 
-        end: "88% top",
+        end: "90% top",
         toggleActions: "play reverse play reverse",
     },
     ...modalConfig
