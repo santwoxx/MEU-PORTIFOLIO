@@ -151,6 +151,7 @@ html {
     scroll-behavior: smooth;
     background-color: var(--bg-primary);
     overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4,4 L11,26 L14,16 L24,13 Z' fill='%23000000' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 4 4, auto;
 }
 
 body {
@@ -162,13 +163,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
     width: 100%;
     
-    /* Cursor Tecnológico Padrão */
-    cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4,4 L11,26 L14,16 L24,13 Z' fill='%23000000' stroke='%23093cb5' stroke-width='2'/%3E%3Cline x1='9' y1='11' x2='14' y2='16' stroke='%23093cb5' stroke-width='1.5'/%3E%3C/svg%3E") 4 4, auto;
+    /* Cursor Tecnológico Preto */
+    cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4,4 L11,26 L14,16 L24,13 Z' fill='%23000000' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 4 4, auto;
 }
 
 /* Cursor Tecnológico para Interações */
 a, button, .btn, .btn-primary, .btn-whatsapp, .btn-copy-email, .project-modal, .accordion-header, .selector-chip, .back-to-top, input, select, textarea {
-    cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23000000' stroke-width='2' stroke-dasharray='4, 4'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23093cb5'/%3E%3Cpath d='M16,2 L16,6 M16,26 L16,30 M2,16 L6,16 M26,16 L30,16' stroke='%23093cb5' stroke-width='2'/%3E%3C/svg%3E") 16 16, pointer !important;
+    cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23000000' stroke-width='2' stroke-dasharray='4, 4'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23000000' stroke='%23ffffff' stroke-width='0.8'/%3E%3Cpath d='M16,2 L16,6 M16,26 L16,30 M2,16 L6,16 M26,16 L30,16' stroke='%23000000' stroke-width='2'/%3E%3C/svg%3E") 16 16, pointer !important;
 }
 
 /* =========================================
